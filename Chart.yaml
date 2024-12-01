@@ -1,0 +1,6 @@
+# Chart.yaml
+
+apiVersion: v2
+name: cosmocloud-deploy
+description: A Helm chart to deploy a backend, frontend, and Redis DB
+version: 0.1.0

@@ -1,0 +1,49 @@
+# frontend-deployment.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: default
+data:
+  BACKEND_URL: "http://backend-svc:8000"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: shreybatra/sample-frontend
+        ports:
+        - containerPort: 5175
+        envFrom:
+        - configMapRef:
+            name: frontend-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+    - port: 5175
+      targetPort: 5175
+      nodePort: 31000

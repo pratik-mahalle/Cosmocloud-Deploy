@@ -1,0 +1,18 @@
+# values.yaml
+
+backend:
+  image: shreybatra/sample-backend
+  replicaCount: 1
+  service:
+    port: 8000
+frontend:
+  image: shreybatra/sample-frontend
+  replicaCount: 1
+  service:
+    port: 5175
+    nodePort: 31000
+redis:
+  image: redis
+  replicaCount: 1
+  service:
+    port: 6379
